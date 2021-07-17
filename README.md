@@ -10,7 +10,7 @@ Re-implement c++ containers
 - [deque](/ft_containers/deque.hpp)
 - [list](/ft_containers/list.hpp)
 - [map](/ft_containers/map.hpp)
-- [multimap](/ft_containers/mltimap.hpp)
+- [multimap](/ft_containers/multimap.hpp)
 - [set](/ft_containers/set.hpp)
 - [multiset](/ft_containers/multiset.hpp)
 - [tree](/ft_containers/tree.hpp)
