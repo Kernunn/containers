@@ -18,11 +18,12 @@ Re-implement c++ containers
 - [queue](/ft_containers/queue.hpp)
 - [stack](/ft_containers/stack.hpp)
 ### Description
-Each container is in ft namespace. Using ft::<container_name>  
-All methods from C++ 98 are implemented for all containers  
-Implemented allocator and reverse iterator class  
-map, multimap, set, multiset based on Red Black Tree  
-tree is the implementation of the Red Black tree
+Each container is in ft namespace. Using ft::<container_name>.  
+All methods from C++ 98 are implemented for all containers.  
+All method prototypes, templates repeat the implementation of STL.  
+Implemented allocator and reverse iterator class.  
+Map, multimap, set, multiset based on Red Black Tree.  
+Tree is the implementation of the Red Black tree.
 
   
 
