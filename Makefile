@@ -185,9 +185,7 @@ $(OBJ_DIR)%.o: $(SRC_TEST_DIR)%.cpp
 	@$(CC) $(INC) $(CXX_FLAGS) -D LIST -D VECTOR -D DEQUE -D QUEUE -D STACK -D MAP -D SET -D MULTIMAP -D MULTISET -D TREE -c $< -o $@ -MMD
 
 clean:
-	@mkdir -p $(OBJ_DIR)
-	@rm -f $(OBJ_DIR)*.o
-	@rm -f $(OBJ_DIR)*.d
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@rm -f $(NAME)

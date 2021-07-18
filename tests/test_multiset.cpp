@@ -3,7 +3,7 @@
 
 template<typename Key, typename Compare>
 bool operator==(const std::multiset<Key, Compare> &lhs, const ft::multiset<Key, Compare>
-    &rhs) {
+&rhs) {
   typename std::multiset<Key, Compare>::const_iterator lbegin = lhs.begin();
   typename std::multiset<Key, Compare>::const_iterator lend = lhs.end();
 
@@ -20,23 +20,21 @@ bool operator==(const std::multiset<Key, Compare> &lhs, const ft::multiset<Key, 
   return true;
 }
 
-static bool fncomp(int lhs, int rhs) { return lhs<rhs; }
+static bool fncomp(int lhs, int rhs) { return lhs < rhs; }
 
 struct classcomp {
-  bool operator() (const int& lhs, const int& rhs) const
-  { return lhs < rhs; }
+  bool operator()(const int &lhs, const int &rhs) const { return lhs < rhs; }
 };
 
-static void TestConstructor()
-{
+static void TestConstructor() {
   std::multiset<int> first;
   ft::multiset<int> ft_first;
   ASSERT_EQUAL(first, ft_first)
 
-  int ints[] = {10,20,30,20,20};
+  int ints[] = {10, 20, 30, 20, 20};
 
-  std::multiset<int> second(ints, ints+5);
-  ft::multiset<int> ft_second(ints, ints+5);
+  std::multiset<int> second(ints, ints + 5);
+  ft::multiset<int> ft_second(ints, ints + 5);
   ASSERT_EQUAL(second, ft_second)
 
   std::multiset<int> third(second);
@@ -47,15 +45,15 @@ static void TestConstructor()
   ft::multiset<int, classcomp> ft_fourth;
 
   bool (*fn_pt)(int, int) = fncomp;
-  std::multiset<int, bool(*)(int, int)> fifth(fn_pt);
-  ft::multiset<int, bool(*)(int, int)> ft_fifth(fn_pt);
+  std::multiset<int, bool (*)(int, int)> fifth(fn_pt);
+  ft::multiset<int, bool (*)(int, int)> ft_fifth(fn_pt);
 }
 
 static void TestAssignmentOperator() {
-  int myints[]={ 19,81,36,36,19 };
-  std::multiset<int> first (myints,myints+5);   // multiset with 5 ints
+  int myints[] = {19, 81, 36, 36, 19};
+  std::multiset<int> first(myints, myints + 5);   // multiset with 5 ints
   std::multiset<int> second;                    // empty multiset
-  ft::multiset<int> ft_first (myints,myints+5);   // multiset with 5 ints
+  ft::multiset<int> ft_first(myints, myints + 5);   // multiset with 5 ints
   ft::multiset<int> ft_second;                    // empty multiset
 
   second = first;                          // now second contains the 5 ints
@@ -68,9 +66,9 @@ static void TestAssignmentOperator() {
 }
 
 static void TestIterators() {
-  int myints[]={ 42,71,71,71,12 };
-  std::multiset<int> first (myints,myints+5);
-  ft::multiset<int> ft_first (myints,myints+5);
+  int myints[] = {42, 71, 71, 71, 12};
+  std::multiset<int> first(myints, myints + 5);
+  ft::multiset<int> ft_first(myints, myints + 5);
 
   ft::multiset<int>::iterator FtFirst = ft_first.begin();
   ft::multiset<int>::iterator FtLast = ft_first.end();
@@ -145,15 +143,15 @@ static void TestInsert() {
   ft::multiset<int>::iterator ft_it;
 
   // set some initial values:
-  for (int i=1; i<=5; ++i) myset.insert(i*10);    // set: 10 20 30 40 50
-  for (int i=1; i<=5; ++i) ft_myset.insert(i*10);    // set: 10 20 30 40 50
+  for (int i = 1; i <= 5; ++i) myset.insert(i * 10);    // set: 10 20 30 40 50
+  for (int i = 1; i <= 5; ++i) ft_myset.insert(i * 10);    // set: 10 20 30 40 50
 
   it = myset.insert(25);               // no new element inserted
   ft_it = ft_myset.insert(25);               // no new element inserted
 
-  int myints[]= {5,10,15};              // 10 already in set, not inserted
-  myset.insert (myints,myints+3);
-  ft_myset.insert (myints,myints+3);
+  int myints[] = {5, 10, 15};              // 10 already in set, not inserted
+  myset.insert(myints, myints + 3);
+  ft_myset.insert(myints, myints + 3);
   ASSERT_EQUAL(myset, ft_myset)
 }
 
@@ -164,8 +162,8 @@ static void TestErase() {
   ft::multiset<int>::iterator ft_it;
 
   // insert some values:
-  for (int i=1; i<10; i++) myset.insert(i*10);  // 10 20 30 40 50 60 70 80 90
-  for (int i=1; i<10; i++) ft_myset.insert(i*10);  // 10 20 30 40 50 60 70 80 90
+  for (int i = 1; i < 10; i++) myset.insert(i * 10);  // 10 20 30 40 50 60 70 80 90
+  for (int i = 1; i < 10; i++) ft_myset.insert(i * 10);  // 10 20 30 40 50 60 70 80 90
   ASSERT_EQUAL(myset, ft_myset)
 
   it = myset.begin();
@@ -173,27 +171,27 @@ static void TestErase() {
   ft_it = ft_myset.begin();
   ++ft_it;
 
-  myset.erase (it);
-  ft_myset.erase (ft_it);
+  myset.erase(it);
+  ft_myset.erase(ft_it);
   ASSERT_EQUAL(myset, ft_myset)
 
-  myset.erase (40);
-  ft_myset.erase (40);
+  myset.erase(40);
+  ft_myset.erase(40);
   ASSERT_EQUAL(myset, ft_myset)
 
-  it = myset.find (50);
-  myset.erase (it, myset.end());
-  ft_it = ft_myset.find (50);
-  ft_myset.erase (ft_it, ft_myset.end());
+  it = myset.find(50);
+  myset.erase(it, myset.end());
+  ft_it = ft_myset.find(50);
+  ft_myset.erase(ft_it, ft_myset.end());
   ASSERT_EQUAL(myset, ft_myset)
 }
 
 static void TestSwap() {
-  int myints[]={19,72,4,36,20,20};
-  std::multiset<int> first (myints,myints+3);
-  std::multiset<int> second (myints+3,myints+6);
-  ft::multiset<int> ft_first (myints,myints+3);
-  ft::multiset<int> ft_second (myints+3,myints+6);
+  int myints[] = {19, 72, 4, 36, 20, 20};
+  std::multiset<int> first(myints, myints + 3);
+  std::multiset<int> second(myints + 3, myints + 6);
+  ft::multiset<int> ft_first(myints, myints + 3);
+  ft::multiset<int> ft_second(myints + 3, myints + 6);
   ASSERT_EQUAL(first, ft_first)
   ASSERT_EQUAL(second, ft_second)
   first.swap(second);
@@ -289,43 +287,41 @@ static void TestSetOperation() {
 	ASSERT_EQUAL(myset, ft_myset)
   }
   {
-    int myints[]={10,73,12,22,73,73,12};
-	std::multiset<int> myset(myints, myints+7);
-	ft::multiset<int> ft_myset(myints, myints+7);
+	int myints[] = {10, 73, 12, 22, 73, 73, 12};
+	std::multiset<int> myset(myints, myints + 7);
+	ft::multiset<int> ft_myset(myints, myints + 7);
 
-	for (int i=0; i<100; ++i)
-	{
+	for (int i = 0; i < 100; ++i) {
 	  ASSERT_EQUAL(myset.count(i), ft_myset.count(i))
 	}
   }
   {
 	std::multiset<int> myset;
-	std::multiset<int>::iterator itlow,itup;
+	std::multiset<int>::iterator itlow, itup;
 	ft::multiset<int> ft_myset;
-	ft::multiset<int>::iterator ft_itlow,ft_itup;
+	ft::multiset<int>::iterator ft_itlow, ft_itup;
+
+	for (int i = 1; i < 10; i++) myset.insert(i * 10); // 10 20 30 40 50 60 70 80 90
+	for (int i = 1; i < 10; i++) ft_myset.insert(i * 10); // 10 20 30 40 50 60 70 80 90
+
+	itlow = myset.lower_bound(30);                //       ^
+	itup = myset.upper_bound(40);                 //                   ^
+	ft_itlow = ft_myset.lower_bound(30);                //       ^
+	ft_itup = ft_myset.upper_bound(40);                 //                   ^
 
 
-	for (int i=1; i<10; i++) myset.insert(i*10); // 10 20 30 40 50 60 70 80 90
-	for (int i=1; i<10; i++) ft_myset.insert(i*10); // 10 20 30 40 50 60 70 80 90
-
-	itlow=myset.lower_bound (30);                //       ^
-	itup=myset.upper_bound (40);                 //                   ^
-	ft_itlow=ft_myset.lower_bound (30);                //       ^
-	ft_itup=ft_myset.upper_bound (40);                 //                   ^
-
-
-	myset.erase(itlow,itup);                     // 10 20 70 80 90
-	ft_myset.erase(ft_itlow,ft_itup);                     // 10 20 70 80 90
+	myset.erase(itlow, itup);                     // 10 20 70 80 90
+	ft_myset.erase(ft_itlow, ft_itup);                     // 10 20 70 80 90
 	ASSERT_EQUAL(myset, ft_myset)
   }
   {
-    int myints[]={77,30,16,2,30,30};
-	std::multiset<int> myset(myints, myints+6);
-	ft::multiset<int> ft_myset(myints, myints+6);
+	int myints[] = {77, 30, 16, 2, 30, 30};
+	std::multiset<int> myset(myints, myints + 6);
+	ft::multiset<int> ft_myset(myints, myints + 6);
 
-	std::pair<std::multiset<int>::const_iterator,std::multiset<int>::const_iterator> ret;
+	std::pair<std::multiset<int>::const_iterator, std::multiset<int>::const_iterator> ret;
 	ret = myset.equal_range(30);
-	std::pair<ft::multiset<int>::const_iterator,ft::multiset<int>::const_iterator> ft_ret;
+	std::pair<ft::multiset<int>::const_iterator, ft::multiset<int>::const_iterator> ft_ret;
 	ft_ret = ft_myset.equal_range(30);
 
 	myset.erase(ret.first, ret.second);
@@ -334,8 +330,7 @@ static void TestSetOperation() {
   }
 }
 
-void	test_multiset()
-{
+void test_multiset() {
   TestRunner tr;
 
   std::cout << "\033[1;36m";

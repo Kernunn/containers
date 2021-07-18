@@ -1,10 +1,10 @@
 #include "test_runner.h"
 #include "multimap.hpp"
 
-
 template<typename Key, typename Value, typename Compare>
 bool operator==(const std::multimap<Key, Value, Compare> &lhs, const ft::multimap<Key,
-	Value, Compare>
+																				  Value,
+																				  Compare>
 &rhs) {
   typename std::multimap<Key, Value, Compare>::const_iterator lbegin = lhs.begin();
   typename std::multimap<Key, Value, Compare>::const_iterator lend = lhs.end();
@@ -22,15 +22,13 @@ bool operator==(const std::multimap<Key, Value, Compare> &lhs, const ft::multima
   return true;
 }
 
-static bool fncomp(char lhs, char rhs) { return lhs<rhs; }
+static bool fncomp(char lhs, char rhs) { return lhs < rhs; }
 
 struct classcomp {
-  bool operator() (const char& lhs, const char& rhs) const
-  { return lhs < rhs; }
+  bool operator()(const char &lhs, const char &rhs) const { return lhs < rhs; }
 };
 
-static void TestConstructor()
-{
+static void TestConstructor() {
   std::multimap<char, int> first;
   ft::multimap<char, int> ft_first;
   ASSERT_EQUAL(first, ft_first)
@@ -45,8 +43,8 @@ static void TestConstructor()
   ft_first.insert(std::pair<char, int>('c', 25));
   ASSERT_EQUAL(first, ft_first)
 
-  std::multimap<char,int> second(first.begin(),first.end());
-  ft::multimap<char,int> ft_second(ft_first.begin(),ft_first.end());
+  std::multimap<char, int> second(first.begin(), first.end());
+  ft::multimap<char, int> ft_second(ft_first.begin(), ft_first.end());
   ASSERT_EQUAL(second, ft_second)
 
   std::multimap<char, int> third(second);
@@ -58,8 +56,8 @@ static void TestConstructor()
   ASSERT_EQUAL(fourth, ft_fourth)
 
   bool (*fn_pt)(char, char) = fncomp;
-  std::multimap<char, int, bool(*)(char, char)> fifth(fn_pt);
-  ft::multimap<char, int, bool(*)(char, char)> ft_fifth(fn_pt);
+  std::multimap<char, int, bool (*)(char, char)> fifth(fn_pt);
+  ft::multimap<char, int, bool (*)(char, char)> ft_fifth(fn_pt);
   ASSERT_EQUAL(fifth, ft_fifth)
 }
 
@@ -182,7 +180,7 @@ static void TestInsert() {
   ASSERT_EQUAL(first, ft_first);
 
   first.insert(it, std::pair<char, int>('c', 300));
-  first.insert(it,std::pair<char, int>('z', 150));
+  first.insert(it, std::pair<char, int>('z', 150));
   ft_first.insert(ft_it, std::pair<char, int>('c', 300));
   ft_first.insert(ft_it, std::pair<char, int>('z', 150));
   ASSERT_EQUAL(first, ft_first);
@@ -216,7 +214,6 @@ static void TestErase() {
   ft_first.insert(std::pair<char, int>('d', 60));
   ft_first.insert(std::pair<char, int>('e', 70));
   ft_first.insert(std::pair<char, int>('f', 80));
-
 
   it = first.find('b');
   ft_it = ft_first.find('b');
@@ -275,11 +272,10 @@ static void TestClear() {
   ft_foo.clear();
   ASSERT_EQUAL(foo, ft_foo)
 
-
   foo.insert(std::pair<char, int>('a', 11));
   foo.insert(std::pair<char, int>('x', 22));
   ft_foo.insert(std::pair<char, int>('a', 11));
-  ft_foo.insert(std::pair<char, int>('x',22));
+  ft_foo.insert(std::pair<char, int>('x', 22));
   ASSERT_EQUAL(foo, ft_foo)
 }
 
@@ -323,7 +319,6 @@ static void TestObservers() {
   ft_foo.insert(std::pair<char, int>('y', 252));
   ft_foo.insert(std::pair<char, int>('z', 303));
 
-
   std::pair<char, int> high = *foo.rbegin();
   std::pair<char, int> ft_high = *ft_foo.rbegin();
 
@@ -353,7 +348,6 @@ static void TestSetOperation() {
 	ft_mymap.insert(std::pair<char, int>('z', 30));
 	ft_mymap.insert(std::pair<char, int>('z', 40));
 
-
 	it = mymap.find('x');
 	ft_it = ft_mymap.find('x');
 	ASSERT_EQUAL(it->first, ft_it->first)
@@ -367,8 +361,8 @@ static void TestSetOperation() {
 	ASSERT_EQUAL(mymap.find('z')->second, ft_mymap.find('z')->second)
   }
   {
-	std::multimap<char,int> mymap;
-	ft::multimap<char,int> ft_mymap;
+	std::multimap<char, int> mymap;
+	ft::multimap<char, int> ft_mymap;
 
 	mymap.insert(std::pair<char, int>('x', 50));
 	mymap.insert(std::pair<char, int>('y', 100));
@@ -383,14 +377,13 @@ static void TestSetOperation() {
 	ft_mymap.insert(std::pair<char, int>('z', 250));
 	ft_mymap.insert(std::pair<char, int>('z', 300));
 
-	for (char c='a'; c<'z'; c++)
-	{ ASSERT_EQUAL(mymap.count(c), ft_mymap.count(c)) }
+	for (char c = 'a'; c < 'z'; c++) {ASSERT_EQUAL(mymap.count(c), ft_mymap.count(c))}
   }
   {
-	std::multimap<char,int> mymap;
-	std::multimap<char,int>::iterator itlow,itup;
-	ft::multimap<char,int> ft_mymap;
-	ft::multimap<char,int>::iterator ft_itlow,ft_itup;
+	std::multimap<char, int> mymap;
+	std::multimap<char, int>::iterator itlow, itup;
+	ft::multimap<char, int> ft_mymap;
+	ft::multimap<char, int>::iterator ft_itlow, ft_itup;
 
 	mymap.insert(std::pair<char, int>('a', 10));
 	mymap.insert(std::pair<char, int>('b', 121));
@@ -405,19 +398,19 @@ static void TestSetOperation() {
 	ft_mymap.insert(std::pair<char, int>('d', 11011));
 	ft_mymap.insert(std::pair<char, int>('e', 44));
 
-	itlow=mymap.lower_bound ('b');  // itlow points to b
-	itup=mymap.upper_bound ('d');   // itup points to e (not d!)
-	ft_itlow=ft_mymap.lower_bound ('b');  // itlow points to b
-	ft_itup=ft_mymap.upper_bound ('d');   // itup points to e (not d!)
+	itlow = mymap.lower_bound('b');  // itlow points to b
+	itup = mymap.upper_bound('d');   // itup points to e (not d!)
+	ft_itlow = ft_mymap.lower_bound('b');  // itlow points to b
+	ft_itup = ft_mymap.upper_bound('d');   // itup points to e (not d!)
 	ASSERT_EQUAL(itlow->first, ft_itlow->first)
 	ASSERT_EQUAL(itup->first, ft_itup->first)
-	mymap.erase(itlow,itup);        // erases [itlow,itup)
-	ft_mymap.erase(ft_itlow,ft_itup);        // erases [itlow,itup)
+	mymap.erase(itlow, itup);        // erases [itlow,itup)
+	ft_mymap.erase(ft_itlow, ft_itup);        // erases [itlow,itup)
 	ASSERT_EQUAL(mymap, ft_mymap)
   }
   {
-	std::multimap<char,int> mymap;
-	ft::multimap<char,int> ft_mymap;
+	std::multimap<char, int> mymap;
+	ft::multimap<char, int> ft_mymap;
 
 	mymap.insert(std::pair<char, int>('a', 10));
 	mymap.insert(std::pair<char, int>('b', 20));
@@ -434,10 +427,9 @@ static void TestSetOperation() {
 	ft_mymap.insert(std::pair<char, int>('c', 60));
 	ft_mymap.insert(std::pair<char, int>('d', 60));
 
-
-	std::pair<std::multimap<char,int>::iterator,std::multimap<char,int>::iterator> ret;
+	std::pair<std::multimap<char, int>::iterator, std::multimap<char, int>::iterator> ret;
 	ret = mymap.equal_range('b');
-	std::pair<ft::multimap<char,int>::iterator,ft::multimap<char,int>::iterator> ft_ret;
+	std::pair<ft::multimap<char, int>::iterator, ft::multimap<char, int>::iterator> ft_ret;
 	ft_ret = ft_mymap.equal_range('b');
 	std::multimap<char, int>::iterator it = ret.first;
 	ft::multimap<char, int>::iterator ft_it = ft_ret.first;
@@ -448,8 +440,7 @@ static void TestSetOperation() {
   }
 }
 
-void	test_multimap()
-{
+void test_multimap() {
   TestRunner tr;
 
   std::cout << "\033[1;36m";

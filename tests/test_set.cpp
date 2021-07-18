@@ -1,7 +1,6 @@
 #include "set.hpp"
 #include "test_runner.h"
 
-
 template<typename Key, typename Compare>
 bool operator==(const std::set<Key, Compare> &lhs, const ft::set<Key, Compare> &rhs) {
   typename std::set<Key, Compare>::const_iterator lbegin = lhs.begin();
@@ -20,23 +19,21 @@ bool operator==(const std::set<Key, Compare> &lhs, const ft::set<Key, Compare> &
   return true;
 }
 
-static bool fncomp(int lhs, int rhs) { return lhs<rhs; }
+static bool fncomp(int lhs, int rhs) { return lhs < rhs; }
 
 struct classcomp {
-  bool operator() (const int& lhs, const int& rhs) const
-  { return lhs < rhs; }
+  bool operator()(const int &lhs, const int &rhs) const { return lhs < rhs; }
 };
 
-static void TestConstructor()
-{
+static void TestConstructor() {
   std::set<int> first;
   ft::set<int> ft_first;
   ASSERT_EQUAL(first, ft_first)
 
-  int ints[] = {10,20,30,40,50};
+  int ints[] = {10, 20, 30, 40, 50};
 
-  std::set<int> second(ints, ints+5);
-  ft::set<int> ft_second(ints, ints+5);
+  std::set<int> second(ints, ints + 5);
+  ft::set<int> ft_second(ints, ints + 5);
   ASSERT_EQUAL(second, ft_second)
 
   std::set<int> third(second);
@@ -47,15 +44,15 @@ static void TestConstructor()
   ft::set<int, classcomp> ft_fourth;
 
   bool (*fn_pt)(int, int) = fncomp;
-  std::set<int, bool(*)(int, int)> fifth(fn_pt);
-  ft::set<int, bool(*)(int, int)> ft_fifth(fn_pt);
+  std::set<int, bool (*)(int, int)> fifth(fn_pt);
+  ft::set<int, bool (*)(int, int)> ft_fifth(fn_pt);
 }
 
 static void TestAssignmentOperator() {
-  int myints[]={ 12,82,37,64,15 };
-  std::set<int> first (myints,myints+5);   // set with 5 ints
+  int myints[] = {12, 82, 37, 64, 15};
+  std::set<int> first(myints, myints + 5);   // set with 5 ints
   std::set<int> second;                    // empty set
-  ft::set<int> ft_first (myints,myints+5);   // set with 5 ints
+  ft::set<int> ft_first(myints, myints + 5);   // set with 5 ints
   ft::set<int> ft_second;                    // empty set
 
   second = first;                          // now second contains the 5 ints
@@ -67,11 +64,10 @@ static void TestAssignmentOperator() {
   ASSERT_EQUAL(second, ft_second);
 }
 
-
 static void TestIterators() {
-  int myints[]={ 12,82,37,64,15 };
-  std::set<int> first (myints,myints+5);
-  ft::set<int> ft_first (myints,myints+5);
+  int myints[] = {12, 82, 37, 64, 15};
+  std::set<int> first(myints, myints + 5);
+  ft::set<int> ft_first(myints, myints + 5);
 
   ft::set<int>::iterator FtFirst = ft_first.begin();
   ft::set<int>::iterator FtLast = ft_first.end();
@@ -132,8 +128,8 @@ static void TestCapacity() {
   ASSERT_EQUAL(myset.empty(), ft_myset.empty())
   ASSERT_EQUAL(myset.size(), ft_myset.size())
   while (!ft_myset.empty()) {
-    myset.erase(myset.begin());
-    ft_myset.erase(ft_myset.begin());
+	myset.erase(myset.begin());
+	ft_myset.erase(ft_myset.begin());
   }
   ASSERT_EQUAL(myset.empty(), ft_myset.empty())
   ASSERT_EQUAL(myset.size(), ft_myset.size())
@@ -142,15 +138,15 @@ static void TestCapacity() {
 static void TestInsert() {
   std::set<int> myset;
   std::set<int>::iterator it;
-  std::pair<std::set<int>::iterator,bool> ret;
+  std::pair<std::set<int>::iterator, bool> ret;
   ft::set<int> ft_myset;
   ft::set<int>::iterator ft_it;
-  std::pair<ft::set<int>::iterator,bool> ft_ret;
+  std::pair<ft::set<int>::iterator, bool> ft_ret;
 
 
   // set some initial values:
-  for (int i=1; i<=5; ++i) myset.insert(i*10);    // set: 10 20 30 40 50
-  for (int i=1; i<=5; ++i) ft_myset.insert(i*10);    // set: 10 20 30 40 50
+  for (int i = 1; i <= 5; ++i) myset.insert(i * 10);    // set: 10 20 30 40 50
+  for (int i = 1; i <= 5; ++i) ft_myset.insert(i * 10);    // set: 10 20 30 40 50
 
   ret = myset.insert(20);               // no new element inserted
   ft_ret = ft_myset.insert(20);               // no new element inserted
@@ -159,17 +155,17 @@ static void TestInsert() {
   it = ret.first;
   ft_it = ft_ret.first;
 
-  myset.insert (it,25);                 // max efficiency inserting
-  myset.insert (it,24);                 // max efficiency inserting
-  myset.insert (it,26);                 // no max efficiency inserting
-  ft_myset.insert (ft_it,25);                 // max efficiency inserting
-  ft_myset.insert (ft_it,24);                 // max efficiency inserting
-  ft_myset.insert (ft_it,26);                 // no max efficiency inserting
+  myset.insert(it, 25);                 // max efficiency inserting
+  myset.insert(it, 24);                 // max efficiency inserting
+  myset.insert(it, 26);                 // no max efficiency inserting
+  ft_myset.insert(ft_it, 25);                 // max efficiency inserting
+  ft_myset.insert(ft_it, 24);                 // max efficiency inserting
+  ft_myset.insert(ft_it, 26);                 // no max efficiency inserting
   ASSERT_EQUAL(myset, ft_myset)
 
-  int myints[]= {5,10,15};              // 10 already in set, not inserted
-  myset.insert (myints,myints+3);
-  ft_myset.insert (myints,myints+3);
+  int myints[] = {5, 10, 15};              // 10 already in set, not inserted
+  myset.insert(myints, myints + 3);
+  ft_myset.insert(myints, myints + 3);
   ASSERT_EQUAL(myset, ft_myset)
 }
 
@@ -181,8 +177,8 @@ static void TestErase() {
 
 
   // insert some values:
-  for (int i=1; i<10; i++) myset.insert(i*10);  // 10 20 30 40 50 60 70 80 90
-  for (int i=1; i<10; i++) ft_myset.insert(i*10);  // 10 20 30 40 50 60 70 80 90
+  for (int i = 1; i < 10; i++) myset.insert(i * 10);  // 10 20 30 40 50 60 70 80 90
+  for (int i = 1; i < 10; i++) ft_myset.insert(i * 10);  // 10 20 30 40 50 60 70 80 90
   ASSERT_EQUAL(myset, ft_myset)
 
   it = myset.begin();
@@ -190,27 +186,27 @@ static void TestErase() {
   ft_it = ft_myset.begin();
   ++ft_it;
 
-  myset.erase (it);
-  ft_myset.erase (ft_it);
+  myset.erase(it);
+  ft_myset.erase(ft_it);
   ASSERT_EQUAL(myset, ft_myset)
 
-  myset.erase (40);
-  ft_myset.erase (40);
+  myset.erase(40);
+  ft_myset.erase(40);
   ASSERT_EQUAL(myset, ft_myset)
 
-  it = myset.find (60);
-  myset.erase (it, myset.end());
-  ft_it = ft_myset.find (60);
-  ft_myset.erase (ft_it, ft_myset.end());
+  it = myset.find(60);
+  myset.erase(it, myset.end());
+  ft_it = ft_myset.find(60);
+  ft_myset.erase(ft_it, ft_myset.end());
   ASSERT_EQUAL(myset, ft_myset)
 }
 
 static void TestSwap() {
-  int myints[]={12,75,10,32,20,25};
-  std::set<int> first (myints,myints+3);     // 10,12,75
-  std::set<int> second (myints+3,myints+6);  // 20,25,32
-  ft::set<int> ft_first (myints,myints+3);     // 10,12,75
-  ft::set<int> ft_second (myints+3,myints+6);  // 20,25,32
+  int myints[] = {12, 75, 10, 32, 20, 25};
+  std::set<int> first(myints, myints + 3);     // 10,12,75
+  std::set<int> second(myints + 3, myints + 6);  // 20,25,32
+  ft::set<int> ft_first(myints, myints + 3);     // 10,12,75
+  ft::set<int> ft_second(myints + 3, myints + 6);  // 20,25,32
   ASSERT_EQUAL(first, ft_first)
   ASSERT_EQUAL(second, ft_second)
   first.swap(second);
@@ -310,44 +306,42 @@ static void TestSetOperation() {
 	ft::set<int> ft_myset;
 
 	// set some initial values:
-	for (int i=1; i<5; ++i) myset.insert(i*3);    // set: 3 6 9 12
-	for (int i=1; i<5; ++i) ft_myset.insert(i*3);    // set: 3 6 9 12
+	for (int i = 1; i < 5; ++i) myset.insert(i * 3);    // set: 3 6 9 12
+	for (int i = 1; i < 5; ++i) ft_myset.insert(i * 3);    // set: 3 6 9 12
 
-	for (int i=0; i<10; ++i)
-	{
+	for (int i = 0; i < 10; ++i) {
 	  ASSERT_EQUAL(myset.count(i), ft_myset.count(i))
 	}
   }
   {
 	std::set<int> myset;
-	std::set<int>::iterator itlow,itup;
+	std::set<int>::iterator itlow, itup;
 	ft::set<int> ft_myset;
-	ft::set<int>::iterator ft_itlow,ft_itup;
+	ft::set<int>::iterator ft_itlow, ft_itup;
+
+	for (int i = 1; i < 10; i++) myset.insert(i * 10); // 10 20 30 40 50 60 70 80 90
+	for (int i = 1; i < 10; i++) ft_myset.insert(i * 10); // 10 20 30 40 50 60 70 80 90
+
+	itlow = myset.lower_bound(30);                //       ^
+	itup = myset.upper_bound(60);                 //                   ^
+	ft_itlow = ft_myset.lower_bound(30);                //       ^
+	ft_itup = ft_myset.upper_bound(60);                 //                   ^
 
 
-	for (int i=1; i<10; i++) myset.insert(i*10); // 10 20 30 40 50 60 70 80 90
-	for (int i=1; i<10; i++) ft_myset.insert(i*10); // 10 20 30 40 50 60 70 80 90
-
-	itlow=myset.lower_bound (30);                //       ^
-	itup=myset.upper_bound (60);                 //                   ^
-	ft_itlow=ft_myset.lower_bound (30);                //       ^
-	ft_itup=ft_myset.upper_bound (60);                 //                   ^
-
-
-	myset.erase(itlow,itup);                     // 10 20 70 80 90
-	ft_myset.erase(ft_itlow,ft_itup);                     // 10 20 70 80 90
+	myset.erase(itlow, itup);                     // 10 20 70 80 90
+	ft_myset.erase(ft_itlow, ft_itup);                     // 10 20 70 80 90
 	ASSERT_EQUAL(myset, ft_myset)
   }
   {
 	std::set<int> myset;
 	ft::set<int> ft_myset;
 
-	for (int i=1; i<=5; i++) myset.insert(i*10);   // myset: 10 20 30 40 50
-	for (int i=1; i<=5; i++) ft_myset.insert(i*10);   // myset: 10 20 30 40 50
+	for (int i = 1; i <= 5; i++) myset.insert(i * 10);   // myset: 10 20 30 40 50
+	for (int i = 1; i <= 5; i++) ft_myset.insert(i * 10);   // myset: 10 20 30 40 50
 
-	std::pair<std::set<int>::const_iterator,std::set<int>::const_iterator> ret;
+	std::pair<std::set<int>::const_iterator, std::set<int>::const_iterator> ret;
 	ret = myset.equal_range(30);
-	std::pair<ft::set<int>::const_iterator,ft::set<int>::const_iterator> ft_ret;
+	std::pair<ft::set<int>::const_iterator, ft::set<int>::const_iterator> ft_ret;
 	ft_ret = ft_myset.equal_range(30);
 
 	ASSERT_EQUAL(*ret.first, *ft_ret.first)
@@ -355,8 +349,7 @@ static void TestSetOperation() {
   }
 }
 
-void	test_set()
-{
+void test_set() {
   TestRunner tr;
 
   std::cout << "\033[1;36m";

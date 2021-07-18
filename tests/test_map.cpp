@@ -2,10 +2,10 @@
 #include <map>
 #include "map.hpp"
 
-
 template<typename Key, typename Value, typename Compare>
-bool operator==(const std::map<Key, Value, Compare> &lhs, const ft::map<Key, Value, Compare>
-&rhs) {
+bool operator==(const std::map<Key, Value, Compare> &lhs,
+				const ft::map<Key, Value, Compare>
+				&rhs) {
   typename std::map<Key, Value, Compare>::const_iterator lbegin = lhs.begin();
   typename std::map<Key, Value, Compare>::const_iterator lend = lhs.end();
 
@@ -14,38 +14,36 @@ bool operator==(const std::map<Key, Value, Compare> &lhs, const ft::map<Key, Val
   if (lhs.size() != rhs.size())
 	return false;
   while (lbegin != lend) {
-    if (*lbegin != *rbegin)
+	if (*lbegin != *rbegin)
 	  return false;
-    ++lbegin;
-    ++rbegin;
+	++lbegin;
+	++rbegin;
   }
   return true;
 }
 
-static bool fncomp(char lhs, char rhs) { return lhs<rhs; }
+static bool fncomp(char lhs, char rhs) { return lhs < rhs; }
 
 struct classcomp {
-  bool operator() (const char& lhs, const char& rhs) const
-  { return lhs < rhs; }
+  bool operator()(const char &lhs, const char &rhs) const { return lhs < rhs; }
 };
 
-static void TestConstructor()
-{
+static void TestConstructor() {
   std::map<char, int> first;
   ft::map<char, int> ft_first;
   ASSERT_EQUAL(first, ft_first)
 
-  first['a']=10;
-  first['b']=30;
-  first['c']=50;
-  first['d']=70;
-  ft_first['a']=10;
-  ft_first['b']=30;
-  ft_first['c']=50;
-  ft_first['d']=70;
+  first['a'] = 10;
+  first['b'] = 30;
+  first['c'] = 50;
+  first['d'] = 70;
+  ft_first['a'] = 10;
+  ft_first['b'] = 30;
+  ft_first['c'] = 50;
+  ft_first['d'] = 70;
 
-  std::map<char,int> second(first.begin(),first.end());
-  ft::map<char,int> ft_second(ft_first.begin(),ft_first.end());
+  std::map<char, int> second(first.begin(), first.end());
+  ft::map<char, int> ft_second(ft_first.begin(), ft_first.end());
   ASSERT_EQUAL(second, ft_second)
 
   std::map<char, int> third(second);
@@ -57,8 +55,8 @@ static void TestConstructor()
   ASSERT_EQUAL(fourth, ft_fourth)
 
   bool (*fn_pt)(char, char) = fncomp;
-  std::map<char, int, bool(*)(char, char)> fifth(fn_pt);
-  ft::map<char, int, bool(*)(char, char)> ft_fifth(fn_pt);
+  std::map<char, int, bool (*)(char, char)> fifth(fn_pt);
+  ft::map<char, int, bool (*)(char, char)> ft_fifth(fn_pt);
   ASSERT_EQUAL(fifth, ft_fifth)
 }
 
@@ -147,16 +145,16 @@ static void TestCapacity() {
   ft::map<char, int> ft_first;
 
   ASSERT_EQUAL(first.empty(), ft_first.empty())
-  first['a']=10;
-  first['b']=20;
-  first['c']=30;
-  ft_first['a']=10;
-  ft_first['b']=20;
-  ft_first['c']=30;
+  first['a'] = 10;
+  first['b'] = 20;
+  first['c'] = 30;
+  ft_first['a'] = 10;
+  ft_first['b'] = 20;
+  ft_first['c'] = 30;
 
   ASSERT_EQUAL(first.size(), ft_first.size())
   while (!ft_first.empty()) {
-    first.erase(first.begin());
+	first.erase(first.begin());
 	ft_first.erase(ft_first.begin());
   }
   ASSERT_EQUAL(first.empty(), ft_first.empty())
@@ -361,7 +359,6 @@ static void TestSetOperation() {
 	ft_mymap['c'] = 150;
 	ft_mymap['d'] = 200;
 
-
 	it = mymap.find('b');
 	ft_it = ft_mymap.find('b');
 	ASSERT_EQUAL(it->first, ft_it->first)
@@ -376,61 +373,60 @@ static void TestSetOperation() {
 	ASSERT_EQUAL(mymap.find('d')->second, ft_mymap.find('d')->second)
   }
   {
-	std::map<char,int> mymap;
-	ft::map<char,int> ft_mymap;
+	std::map<char, int> mymap;
+	ft::map<char, int> ft_mymap;
 	char c;
 
-	mymap ['a']=101;
-	mymap ['c']=202;
-	mymap ['f']=303;
-	ft_mymap ['a']=101;
-	ft_mymap ['c']=202;
-	ft_mymap ['f']=303;
+	mymap['a'] = 101;
+	mymap['c'] = 202;
+	mymap['f'] = 303;
+	ft_mymap['a'] = 101;
+	ft_mymap['c'] = 202;
+	ft_mymap['f'] = 303;
 
-	for (c='a'; c<'h'; c++)
-	{ ASSERT_EQUAL(mymap.count(c), ft_mymap.count(c)) }
+	for (c = 'a'; c < 'h'; c++) {ASSERT_EQUAL(mymap.count(c), ft_mymap.count(c))}
   }
   {
-	std::map<char,int> mymap;
-	std::map<char,int>::iterator itlow,itup;
-	ft::map<char,int> ft_mymap;
-	ft::map<char,int>::iterator ft_itlow,ft_itup;
+	std::map<char, int> mymap;
+	std::map<char, int>::iterator itlow, itup;
+	ft::map<char, int> ft_mymap;
+	ft::map<char, int>::iterator ft_itlow, ft_itup;
 
-	mymap['a']=20;
-	mymap['b']=40;
-	mymap['c']=60;
-	mymap['d']=80;
-	mymap['e']=100;
-	ft_mymap['a']=20;
-	ft_mymap['b']=40;
-	ft_mymap['c']=60;
-	ft_mymap['d']=80;
-	ft_mymap['e']=100;
+	mymap['a'] = 20;
+	mymap['b'] = 40;
+	mymap['c'] = 60;
+	mymap['d'] = 80;
+	mymap['e'] = 100;
+	ft_mymap['a'] = 20;
+	ft_mymap['b'] = 40;
+	ft_mymap['c'] = 60;
+	ft_mymap['d'] = 80;
+	ft_mymap['e'] = 100;
 
-	itlow=mymap.lower_bound ('b');  // itlow points to b
-	itup=mymap.upper_bound ('d');   // itup points to e (not d!)
-	ft_itlow=ft_mymap.lower_bound ('b');  // itlow points to b
-	ft_itup=ft_mymap.upper_bound ('d');   // itup points to e (not d!)
+	itlow = mymap.lower_bound('b');  // itlow points to b
+	itup = mymap.upper_bound('d');   // itup points to e (not d!)
+	ft_itlow = ft_mymap.lower_bound('b');  // itlow points to b
+	ft_itup = ft_mymap.upper_bound('d');   // itup points to e (not d!)
 	ASSERT_EQUAL(itlow->first, ft_itlow->first)
 	ASSERT_EQUAL(itup->first, ft_itup->first)
-	mymap.erase(itlow,itup);        // erases [itlow,itup)
-	ft_mymap.erase(ft_itlow,ft_itup);        // erases [itlow,itup)
+	mymap.erase(itlow, itup);        // erases [itlow,itup)
+	ft_mymap.erase(ft_itlow, ft_itup);        // erases [itlow,itup)
 	ASSERT_EQUAL(mymap, ft_mymap)
   }
   {
-	std::map<char,int> mymap;
-	ft::map<char,int> ft_mymap;
+	std::map<char, int> mymap;
+	ft::map<char, int> ft_mymap;
 
-	mymap['a']=10;
-	mymap['b']=20;
-	mymap['c']=30;
-	ft_mymap['a']=10;
-	ft_mymap['b']=20;
-	ft_mymap['c']=30;
+	mymap['a'] = 10;
+	mymap['b'] = 20;
+	mymap['c'] = 30;
+	ft_mymap['a'] = 10;
+	ft_mymap['b'] = 20;
+	ft_mymap['c'] = 30;
 
-	std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator> ret;
+	std::pair<std::map<char, int>::iterator, std::map<char, int>::iterator> ret;
 	ret = mymap.equal_range('b');
-	std::pair<ft::map<char,int>::iterator,ft::map<char,int>::iterator> ft_ret;
+	std::pair<ft::map<char, int>::iterator, ft::map<char, int>::iterator> ft_ret;
 	ft_ret = ft_mymap.equal_range('b');
 
 	ASSERT_EQUAL(ret.first->first, ft_ret.first->first)
@@ -438,8 +434,7 @@ static void TestSetOperation() {
   }
 }
 
-void	test_map()
-{
+void test_map() {
   TestRunner tr;
 
   std::cout << "\033[1;36m";

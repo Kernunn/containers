@@ -5,40 +5,41 @@ typedef int key;
 typedef std::pair<int, int> value_type;
 typedef _Select1st<value_type> keyOfValue;
 typedef std::less<int> compare;
-typedef	ft::Rb_tree<key, value_type, keyOfValue, compare>::iterator iter;
+typedef ft::Rb_tree<key, value_type, keyOfValue, compare>::iterator iter;
 
 static void TestConstructor() {
   ft::Rb_tree<key, value_type, keyOfValue, compare> tree1;
   greater<int> key_compare = std::greater<int>();
   ft::Rb_tree<key, value_type, keyOfValue, greater<int> > tree2(key_compare);
 
-
   ASSERT_EQUAL(tree2.size(), size_t(0))
-  tree1.insert_unique(value_type(1,1));
-  tree1.insert_unique(value_type(2,2));
-  tree1.insert_unique(value_type(3,3));
-  tree1.insert_unique(value_type(4,4));
-  tree1.insert_unique(value_type(5,5));
+  tree1.insert_unique(value_type(1, 1));
+  tree1.insert_unique(value_type(2, 2));
+  tree1.insert_unique(value_type(3, 3));
+  tree1.insert_unique(value_type(4, 4));
+  tree1.insert_unique(value_type(5, 5));
   ft::Rb_tree<key, value_type, keyOfValue, compare> tree3(tree1);
   ASSERT_EQUAL(tree1, tree3)
-  tree2.insert_unique(value_type(1,1));
-  tree2.insert_unique(value_type(2,2));
-  tree2.insert_unique(value_type(3,3));
-  tree2.insert_unique(value_type(4,4));
-  tree2.insert_unique(value_type(5,5));
+  tree2.insert_unique(value_type(1, 1));
+  tree2.insert_unique(value_type(2, 2));
+  tree2.insert_unique(value_type(3, 3));
+  tree2.insert_unique(value_type(4, 4));
+  tree2.insert_unique(value_type(5, 5));
   std::vector<int> tree1vect;
   std::vector<int> tree2vect;
   ft::Rb_tree<key, value_type, keyOfValue, compare>::const_iterator first = tree1.begin();
   ft::Rb_tree<key, value_type, keyOfValue, compare>::const_iterator last = tree1.end();
-  ft::Rb_tree<key, value_type, keyOfValue, greater<int> >::const_reverse_iterator fir = tree2
-  	.rbegin();
-  ft::Rb_tree<key, value_type, keyOfValue, greater<int> >::const_reverse_iterator las = tree2
-  	.rend();
+  ft::Rb_tree<key, value_type, keyOfValue, greater<int> >::const_reverse_iterator
+	  fir = tree2
+	  .rbegin();
+  ft::Rb_tree<key, value_type, keyOfValue, greater<int> >::const_reverse_iterator
+	  las = tree2
+	  .rend();
 
-  for(; first != last; first++) {
-    tree1vect.push_back((*first).second);
+  for (; first != last; first++) {
+	tree1vect.push_back((*first).second);
   }
-  for(; fir != las; ++fir) {
+  for (; fir != las; ++fir) {
 	tree2vect.push_back((*fir).first);
   }
   ASSERT_EQUAL(tree1vect, tree2vect);
@@ -52,30 +53,32 @@ static void TestAccessors() {
 
   ASSERT_EQUAL(tree.empty(), true)
   ASSERT_EQUAL(tree.size(), std::size_t(0))
-  tree.insert_unique(value_type(1,1));
-  tree.insert_unique(value_type(5,5));
-  tree.insert_unique(value_type(3,3));
-  tree.insert_unique(value_type(2,2));
-  tree.insert_unique(value_type(4,4));
+  tree.insert_unique(value_type(1, 1));
+  tree.insert_unique(value_type(5, 5));
+  tree.insert_unique(value_type(3, 3));
+  tree.insert_unique(value_type(2, 2));
+  tree.insert_unique(value_type(4, 4));
   ASSERT_EQUAL(tree.empty(), false)
   ASSERT_EQUAL(tree.size(), std::size_t(5))
   ft::Rb_tree<key, value_type, keyOfValue, compare>::iterator begin = tree.begin();
   ft::Rb_tree<key, value_type, keyOfValue, compare>::iterator last = tree.end();
   const ft::Rb_tree<key, value_type, keyOfValue, compare> const_tree(tree);
-  ft::Rb_tree<key, value_type, keyOfValue, compare>::const_iterator cbeg = const_tree.begin();
-  ft::Rb_tree<key, value_type, keyOfValue, compare>::const_iterator clast = const_tree.end();
+  ft::Rb_tree<key, value_type, keyOfValue, compare>::const_iterator
+	  cbeg = const_tree.begin();
+  ft::Rb_tree<key, value_type, keyOfValue, compare>::const_iterator
+	  clast = const_tree.end();
   while (begin != last && cbeg != clast) {
 	ASSERT_EQUAL((*begin).second, (*cbeg).second)
 	begin++;
 	++cbeg;
   }
   ft::Rb_tree<key, value_type, keyOfValue, compare>::reverse_iterator rbegin = tree
-  	.rbegin();
+	  .rbegin();
   ft::Rb_tree<key, value_type, keyOfValue, compare>::reverse_iterator rlast = tree.rend();
   ft::Rb_tree<key, value_type, keyOfValue, compare>::const_reverse_iterator crbeg =
-  	const_tree.rbegin();
+	  const_tree.rbegin();
   ft::Rb_tree<key, value_type, keyOfValue, compare>::const_reverse_iterator crlast =
-  	const_tree.rend();
+	  const_tree.rend();
   while (rbegin != rlast && crbeg != crlast) {
 	ASSERT_EQUAL((*rbegin).second, (*crbeg).second)
 	rbegin++;
@@ -102,28 +105,28 @@ static void TestAccessors() {
 }
 
 static void TestInsert() {
-  ft::Rb_tree<key, value_type ,keyOfValue, compare> tree;
+  ft::Rb_tree<key, value_type, keyOfValue, compare> tree;
 
   std::pair<iter, bool> ret;
-  ret = tree.insert_unique(value_type(1,1));
+  ret = tree.insert_unique(value_type(1, 1));
   ASSERT_EQUAL(ret.second, true);
   ASSERT_EQUAL((*ret.first).second, 1)
-  ret = tree.insert_unique(value_type(5,5));
+  ret = tree.insert_unique(value_type(5, 5));
   ASSERT_EQUAL(ret.second, true);
   ASSERT_EQUAL((*ret.first).second, 5)
-  ret = tree.insert_unique(value_type(3,3));
+  ret = tree.insert_unique(value_type(3, 3));
   ASSERT_EQUAL(ret.second, true);
   ASSERT_EQUAL((*ret.first).second, 3)
-  ret = tree.insert_unique(value_type(2,2));
+  ret = tree.insert_unique(value_type(2, 2));
   ASSERT_EQUAL(ret.second, true);
   ASSERT_EQUAL((*ret.first).second, 2)
-  ret = tree.insert_unique(value_type(4,4));
+  ret = tree.insert_unique(value_type(4, 4));
   ASSERT_EQUAL(ret.second, true);
   ASSERT_EQUAL((*ret.first).second, 4)
-  ret = tree.insert_unique(value_type(4,4));
+  ret = tree.insert_unique(value_type(4, 4));
   ASSERT_EQUAL(ret.second, false);
   ASSERT_EQUAL((*ret.first).second, 4)
-  ret = tree.insert_unique(value_type(3,3));
+  ret = tree.insert_unique(value_type(3, 3));
   ASSERT_EQUAL(ret.second, false);
   ASSERT_EQUAL((*ret.first).second, 3)
 
@@ -139,7 +142,7 @@ static void TestInsert() {
   }
   ASSERT_EQUAL(expected, curr)
 
-  tree.insert_unique(ret.first, value_type(3,7));
+  tree.insert_unique(ret.first, value_type(3, 7));
   first = tree.begin();
   last = tree.end();
   curr.clear();
@@ -149,9 +152,9 @@ static void TestInsert() {
   ASSERT_EQUAL(expected, curr)
 
   std::vector<value_type> add;
-  add.push_back(value_type(8,8));
-  add.push_back(value_type(9,9));
-  add.push_back(value_type(4,4));
+  add.push_back(value_type(8, 8));
+  add.push_back(value_type(9, 9));
+  add.push_back(value_type(4, 4));
   tree.insert_range_unique(add.begin(), add.end());
   first = tree.begin();
   last = tree.end();
@@ -165,22 +168,22 @@ static void TestInsert() {
 }
 
 static void TestInsert2() {
-  ft::Rb_tree<key, value_type ,keyOfValue, compare> tree;
+  ft::Rb_tree<key, value_type, keyOfValue, compare> tree;
 
   iter ret;
-  ret = tree.insert_equal(value_type(1,1));
+  ret = tree.insert_equal(value_type(1, 1));
   ASSERT_EQUAL((*ret).second, 1)
-  ret = tree.insert_equal(value_type(5,5));
+  ret = tree.insert_equal(value_type(5, 5));
   ASSERT_EQUAL((*ret).second, 5)
-  ret = tree.insert_equal(value_type(3,3));
+  ret = tree.insert_equal(value_type(3, 3));
   ASSERT_EQUAL((*ret).second, 3)
-  ret = tree.insert_equal(value_type(2,2));
+  ret = tree.insert_equal(value_type(2, 2));
   ASSERT_EQUAL((*ret).second, 2)
-  ret = tree.insert_equal(value_type(4,4));
+  ret = tree.insert_equal(value_type(4, 4));
   ASSERT_EQUAL((*ret).second, 4)
-  ret = tree.insert_equal(value_type(4,4));
+  ret = tree.insert_equal(value_type(4, 4));
   ASSERT_EQUAL((*ret).second, 4)
-  ret = tree.insert_equal(value_type(3,3));
+  ret = tree.insert_equal(value_type(3, 3));
   ASSERT_EQUAL((*ret).second, 3)
 
   std::vector<int> expected;
@@ -203,8 +206,8 @@ static void TestInsert2() {
   for (int i = 0; i < 4; ++i) {
 	++it;
   }
-  expected.insert(it,7);
-  tree.insert_equal(ret, value_type(3,7));
+  expected.insert(it, 7);
+  tree.insert_equal(ret, value_type(3, 7));
   first = tree.begin();
   last = tree.end();
   curr.clear();
@@ -214,9 +217,9 @@ static void TestInsert2() {
   ASSERT_EQUAL(expected, curr)
 
   std::vector<value_type> add;
-  add.push_back(value_type(8,8));
-  add.push_back(value_type(9,9));
-  add.push_back(value_type(4,4));
+  add.push_back(value_type(8, 8));
+  add.push_back(value_type(9, 9));
+  add.push_back(value_type(4, 4));
   tree.insert_range_equal(add.begin(), add.end());
   first = tree.begin();
   last = tree.end();
@@ -235,64 +238,53 @@ static void TestInsert2() {
 }
 
 static void TestSetOperation() {
-  ft::Rb_tree<key, value_type ,keyOfValue, compare> tree;
+  ft::Rb_tree<key, value_type, keyOfValue, compare> tree;
   iter it;
 
-  tree.insert_unique(value_type(1,50));
-  tree.insert_unique(value_type(2,100));
-  tree.insert_unique(value_type(3,150));
-  tree.insert_unique(value_type(4,200));
+  tree.insert_unique(value_type(1, 50));
+  tree.insert_unique(value_type(2, 100));
+  tree.insert_unique(value_type(3, 150));
+  tree.insert_unique(value_type(4, 200));
 
   it = tree.find(1);
-  if (it == tree.end())
-	ASSERT_EQUAL(1, 0);
+  if (it == tree.end()) ASSERT_EQUAL(1, 0);
   ASSERT_EQUAL(it->second, 50);
   it = tree.find(2);
-  if (it == tree.end())
-    ASSERT_EQUAL(1, 0);
+  if (it == tree.end()) ASSERT_EQUAL(1, 0);
   ASSERT_EQUAL(it->second, 100);
   it = tree.find(3);
-  if (it == tree.end())
-    ASSERT_EQUAL(1, 0);
+  if (it == tree.end()) ASSERT_EQUAL(1, 0);
   ASSERT_EQUAL(it->second, 150);
   it = tree.find(4);
-  if (it == tree.end())
-    ASSERT_EQUAL(1, 0);
+  if (it == tree.end()) ASSERT_EQUAL(1, 0);
   ASSERT_EQUAL(it->second, 200);
   it = tree.find(5);
-  if (it != tree.end())
-    ASSERT_EQUAL(1, 0);
+  if (it != tree.end()) ASSERT_EQUAL(1, 0);
 
-  tree.insert_unique(value_type(7,7));
+  tree.insert_unique(value_type(7, 7));
   it = tree.lower_bound(2);
-  if (it == tree.end())
-    ASSERT_EQUAL(1, 0);
+  if (it == tree.end()) ASSERT_EQUAL(1, 0);
   ASSERT_EQUAL(it->second, 100);
   it = tree.lower_bound(5);
-  if (it == tree.end())
-    ASSERT_EQUAL(1, 0);
+  if (it == tree.end()) ASSERT_EQUAL(1, 0);
   ASSERT_EQUAL(it->second, 7);
-
 
   it = tree.upper_bound(2);
-  if (it == tree.end())
-    ASSERT_EQUAL(1, 0);
+  if (it == tree.end()) ASSERT_EQUAL(1, 0);
   ASSERT_EQUAL(it->second, 150);
   it = tree.upper_bound(5);
-  if (it == tree.end())
-    ASSERT_EQUAL(1, 0);
+  if (it == tree.end()) ASSERT_EQUAL(1, 0);
   ASSERT_EQUAL(it->second, 7);
   it = tree.upper_bound(7);
-  if (it != tree.end())
-    ASSERT_EQUAL(1, 0);
+  if (it != tree.end()) ASSERT_EQUAL(1, 0);
 }
 
 static void TestSetOperation2() {
-  ft::Rb_tree<key, value_type ,keyOfValue, compare> tree;
+  ft::Rb_tree<key, value_type, keyOfValue, compare> tree;
 
-  tree.insert_unique(value_type(1,101));
-  tree.insert_unique(value_type(3,202));
-  tree.insert_unique(value_type(6,303));
+  tree.insert_unique(value_type(1, 101));
+  tree.insert_unique(value_type(3, 202));
+  tree.insert_unique(value_type(6, 303));
   ASSERT_EQUAL(tree.count(1), size_t(1));
   ASSERT_EQUAL(tree.count(3), std::size_t(1));
   ASSERT_EQUAL(tree.count(6), size_t(1));
@@ -305,21 +297,21 @@ static void TestSetOperation2() {
 }
 
 static void TestRelationOperation() {
-  ft::Rb_tree<key, value_type ,keyOfValue, compare> tree1;
-  ft::Rb_tree<key, value_type ,keyOfValue, compare> tree2;
+  ft::Rb_tree<key, value_type, keyOfValue, compare> tree1;
+  ft::Rb_tree<key, value_type, keyOfValue, compare> tree2;
 
   ASSERT_EQUAL(tree1 == tree2, true)
-  tree1.insert_unique(value_type(1,1));
-  tree2.insert_unique(value_type(1,2));
+  tree1.insert_unique(value_type(1, 1));
+  tree2.insert_unique(value_type(1, 2));
   ASSERT_EQUAL(tree1 < tree2, true)
   ASSERT_EQUAL(tree2 > tree1, true)
 }
 
 static void TestErase() {
-  ft::Rb_tree<key, value_type ,keyOfValue, compare> tree;
+  ft::Rb_tree<key, value_type, keyOfValue, compare> tree;
 
   for (int i = 1; i < 15; ++i) {
-	tree.insert_unique(value_type(i,i));
+	tree.insert_unique(value_type(i, i));
   }
   tree.erase(tree.find(14));
   std::vector<int> expected;
@@ -330,15 +322,15 @@ static void TestErase() {
   iter last = tree.end();
   std::vector<int> curr;
   while (first != last) {
-    curr.push_back((*first).second);
-    ++first;
+	curr.push_back((*first).second);
+	++first;
   }
   ASSERT_EQUAL(expected, curr);
   tree.clear();
   ASSERT_EQUAL(tree.empty(), true);
   ASSERT_EQUAL(tree.size(), std::size_t(0));
   for (int i = 1; i < 15; ++i) {
-	tree.insert_unique(value_type(i,i));
+	tree.insert_unique(value_type(i, i));
   }
   ASSERT_EQUAL(tree.erase(14), std::size_t(1));
   curr.clear();
@@ -363,13 +355,13 @@ static void TestErase() {
 }
 
 static void TestErase2() {
-  ft::Rb_tree<key, value_type ,keyOfValue, compare> tree;
+  ft::Rb_tree<key, value_type, keyOfValue, compare> tree;
 
   for (int i = 1; i < 15; ++i) {
-	tree.insert_equal(value_type(i,i));
+	tree.insert_equal(value_type(i, i));
   }
   for (int i = 1; i < 15; ++i) {
-	tree.insert_equal(value_type(i,i));
+	tree.insert_equal(value_type(i, i));
   }
   tree.erase(tree.find(14));
   std::vector<int> expected;
@@ -418,7 +410,7 @@ static void TestErase2() {
 //  ASSERT_EQUAL(curr, expected);
 }
 
-void	test_tree() {
+void test_tree() {
   TestRunner tr;
 
   std::cout << "\033[1;36m";
